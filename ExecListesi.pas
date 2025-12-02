@@ -26,7 +26,7 @@ var
   DllList: TStringList;
   DllNameList: TStringList;
   Dosya: THandle;
-  OkunanDeger: ^Cardinal;
+  OkunanDeger: ^PNativeUInt;
   LibHandle: THandle;
   BackSlashTemizleHesapla: string;
   MydxInitialize: procedure; stdcall;
@@ -42,7 +42,7 @@ begin
   else
     raise EDLLLoadError.Create(BackSlashTemizleHesapla + 'DllList Ortak Memory''de Bulunamadý');
 
-  if OkunanDeger^ > 0 then
+  if NativeUInt(OkunanDeger^) > 0 then
     DllList := TStringList(OkunanDeger^)
   else
     raise EDLLLoadError.Create(BackSlashTemizleHesapla + 'DllList için Ortak Memory''de Deðer Yok');
@@ -56,7 +56,7 @@ begin
   else
     raise EDLLLoadError.Create(BackSlashTemizleHesapla + 'DllNameList Ortak Memory''de Bulunamadý');
 
-  if OkunanDeger^ > 0 then
+  if NativeUInt(OkunanDeger^) > 0 then
     DllNameList := TStringList(OkunanDeger^)
   else
     raise EDLLLoadError.Create(BackSlashTemizleHesapla + 'DllNameList için Ortak Memory''de Deðer Yok');

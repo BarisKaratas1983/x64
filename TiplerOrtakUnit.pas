@@ -6,7 +6,7 @@ uses
   Vcl.Forms, System.Classes, DataSnap.DbClient;
 
 type
-  PNativeUIntGoster = ^NativeUInt;
+  PNativeUInt = ^NativeUInt;
 
   TOrtakBilgi = class(TComponent)
   private

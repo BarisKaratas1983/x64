@@ -56,7 +56,8 @@ end;
 
 procedure TfrmAna.FormCreate(Sender: TObject);
 var
-  CardinalGoster: ^integer;
+  //CardinalGoster: ^integer;
+  CardinalGoster: PNativeUInt;
 begin
   PSL := TStringList.Create;
 
@@ -66,13 +67,21 @@ begin
   MapDllListHandle := 0;
   MapDllNameListHandle := 0;
 
-  MapDllListHandle := CreateFileMapping($FFFFFFFF, nil, PAGE_READWRITE, 0, SizeOf(Cardinal), PChar(BackSlashTemizle(ExtractFilePath(Paramstr(0))) + 'DllList'));
-  CardinalGoster := MapViewOfFile(MapDllListHandle, FILE_MAP_WRITE, 0, 0, 0);
-  PNativeUIntGoster(CardinalGoster)^ := NativeUInt(DllList);
+  MapDllListHandle := CreateFileMapping(INVALID_HANDLE_VALUE, nil, PAGE_READWRITE, 0, SizeOf(NativeUInt), PChar(BackSlashTemizle(ExtractFilePath(ParamStr(0))) + 'DllList'));
+  CardinalGoster := PNativeUInt(MapViewOfFile(MapDllListHandle, FILE_MAP_WRITE, 0, 0, SizeOf(NativeUInt)));
+  CardinalGoster^ := NativeUInt(Pointer(DllList));
 
-  MapDllNameListHandle := CreateFileMapping($FFFFFFFF, nil, PAGE_READWRITE, 0, SizeOf(Cardinal), PChar(BackSlashTemizle(ExtractFilePath(Paramstr(0))) + 'DllNameList'));
-  CardinalGoster := MapViewOfFile(MapDllNameListHandle, FILE_MAP_WRITE, 0, 0, 0);
-  PNativeUIntGoster(CardinalGoster)^ := NativeUInt(DllNameList);
+//  MapDllListHandle := CreateFileMapping($FFFFFFFF, nil, PAGE_READWRITE, 0, SizeOf(Cardinal), PChar(BackSlashTemizle(ExtractFilePath(Paramstr(0))) + 'DllList'));
+//  CardinalGoster := MapViewOfFile(MapDllListHandle, FILE_MAP_WRITE, 0, 0, 0);
+//  CardinalGoster^ := Int64(DllList);
+
+  MapDllNameListHandle := CreateFileMapping(INVALID_HANDLE_VALUE, nil, PAGE_READWRITE, 0, SizeOf(NativeUInt), PChar(BackSlashTemizle(ExtractFilePath(ParamStr(0))) + 'DllNameList'));
+  CardinalGoster := PNativeUInt(MapViewOfFile(MapDllNameListHandle, FILE_MAP_WRITE, 0, 0, SizeOf(NativeUInt)));
+  CardinalGoster^ := NativeUInt(Pointer(DllNameList));
+
+//  MapDllNameListHandle := CreateFileMapping($FFFFFFFF, nil, PAGE_READWRITE, 0, SizeOf(Cardinal), PChar(BackSlashTemizle(ExtractFilePath(Paramstr(0))) + 'DllNameList'));
+//  CardinalGoster := MapViewOfFile(MapDllNameListHandle, FILE_MAP_WRITE, 0, 0, 0);
+//  CardinalGoster^ := Int64(DllNameList);
 end;
 
 procedure TfrmAna.FormDestroy(Sender: TObject);
