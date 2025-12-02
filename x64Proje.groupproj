@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{9A7079E9-1E50-42FF-B198-5DC36DEED4F0}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="x64Uygulama.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="x64Dll.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="x64Uygulama">
+        <MSBuild Projects="x64Uygulama.dproj"/>
+    </Target>
+    <Target Name="x64Uygulama:Clean">
+        <MSBuild Projects="x64Uygulama.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="x64Uygulama:Make">
+        <MSBuild Projects="x64Uygulama.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="x64Dll">
+        <MSBuild Projects="x64Dll.dproj"/>
+    </Target>
+    <Target Name="x64Dll:Clean">
+        <MSBuild Projects="x64Dll.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="x64Dll:Make">
+        <MSBuild Projects="x64Dll.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="x64Uygulama;x64Dll"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="x64Uygulama:Clean;x64Dll:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="x64Uygulama:Make;x64Dll:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
