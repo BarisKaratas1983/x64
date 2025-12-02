@@ -68,12 +68,11 @@ begin
 
   MapDllListHandle := CreateFileMapping($FFFFFFFF, nil, PAGE_READWRITE, 0, SizeOf(Cardinal), PChar(BackSlashTemizle(ExtractFilePath(Paramstr(0))) + 'DllList'));
   CardinalGoster := MapViewOfFile(MapDllListHandle, FILE_MAP_WRITE, 0, 0, 0);
-  CardinalGoster^ := Int64(DllList);
+  PNativeUIntGoster(CardinalGoster)^ := NativeUInt(DllList);
 
   MapDllNameListHandle := CreateFileMapping($FFFFFFFF, nil, PAGE_READWRITE, 0, SizeOf(Cardinal), PChar(BackSlashTemizle(ExtractFilePath(Paramstr(0))) + 'DllNameList'));
-
   CardinalGoster := MapViewOfFile(MapDllNameListHandle, FILE_MAP_WRITE, 0, 0, 0);
-  CardinalGoster^ := Int64(DllNameList);
+  PNativeUIntGoster(CardinalGoster)^ := NativeUInt(DllNameList);
 end;
 
 procedure TfrmAna.FormDestroy(Sender: TObject);

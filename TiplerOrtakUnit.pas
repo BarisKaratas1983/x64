@@ -6,6 +6,8 @@ uses
   Vcl.Forms, System.Classes, DataSnap.DbClient;
 
 type
+  PNativeUIntGoster = ^NativeUInt;
+
   TOrtakBilgi = class(TComponent)
   private
     FKullaniciId: integer;
